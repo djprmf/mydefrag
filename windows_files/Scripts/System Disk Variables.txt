@@ -1,0 +1,202 @@
+##############################
+#  Jaspion MyDefrag Scripts  #
+##############################
+
+#  System Disk Variables v3.1 2013-05-06
+#  compatible with MyDefrag v4.3.0 and 4.3.1
+
+
+
+# System Disk Variables:
+
+    # The position of system files:
+
+        SetVariable(SystemFilesPosition, VolumeUsed * 0.125)
+        # Default value:                "VolumeUsed * 0.125"
+
+
+
+    # The size of the free space areas destined to
+    # maximize file writing throughput:
+
+        SetVariable(DirectoriesGap, 8Mi)
+        # Default value:           "8Mi"
+
+        SetVariable(NtfsReservedArea, MftSize * 0.1)
+        # Default value:             "MftSize * 0.1"
+
+        SetVariable(SmallGapSpf, VolumeSize * 0.01)
+        # Default value:        "VolumeSize * 0.01"
+        # Note: Spf = System Priority Files
+
+        SetVariable(VolumeFreeGapSpf, VolumeFree * 0.05)
+        # Default value:             "VolumeFree * 0.05"
+        # Note: Spf = System Priority Files
+
+        SetVariable(SmallGapUpf, VolumeSize * 0.025)
+        # Default value:        "VolumeSize * 0.025"
+        # Note: Upf = User Priority Files
+
+        SetVariable(VolumeFreeGapUpf, VolumeFree * 0.25)
+        # Default value:             "VolumeFree * 0.25"
+        # Note: Upf = User Priority Files
+
+        SetVariable(LargeGap, VolumeSize * 0.1)
+        # Default value:     "VolumeSize * 0.1"
+
+        SetVariable(LargeVolumeFreeGap, VolumeFree * 0.5)
+        # Default value:               "VolumeFree * 0.5"
+
+
+
+    # The size to round a gap between zones to,
+    # used to stabilize the position of certain zones:
+
+        SetVariable(RoundDirectories, 32Mi)
+        # Default value:             "32Mi"
+
+        SetVariable(RoundGapSize, VolumeSize * 0.0005)
+        # Default value:         "VolumeSize * 0.0005"
+
+        SetVariable(RoundSystemFilesPosition, VolumeSize * 0.01)
+        # Default value:                     "VolumeSize * 0.01"
+
+
+
+    # MoveToEndOfDisk threshold:
+
+        SetVariable(LargeFileSize, 0)
+        # Default value:          "0"
+        # All non-program/system files will be placed after a gap behind
+        # program/system files.
+
+        # Optional value (suggested): "256Mi"
+        # Non-program/system files larger than LargeFileSize will be moved
+        # to the end of the disk.
+
+
+
+# Statistics to display:
+
+SetStatisticsWindowText("
+Total disk space:   !VolumeSize! bytes !VolumeSizeG! GigaBytes
+Unfragmented items: !FILES202N! bytes !FILES200N! items
+Fragmented items:   !FILES212N! bytes !FILES210N! items
+Gaps:               !GAP10N! bytes !GAP00N! gaps
+Average gap:        !GAP13N! bytes
+Median gap:         !GAP14N! bytes
+Biggest gap:        !GAP15N! bytes
+
+Zone number:        !ZoneNumber!
+Unfragmented items: !ZONE202N! bytes !ZONE200N! items
+Fragmented items:   !ZONE212N! bytes !ZONE210N! items
+
+Volume mountpoint:          !MountPoint!
+Volume name:                !VolumeName!
+Volume type:                !VolumeType!
+Total disk space:           !VolumeSize! bytes
+                            !VolumeSizeG! gigabytes
+Bytes per cluster:          !BytesPerCluster! bytes
+Average end-begin distance: !AverageBeginEndDistance! clusters
+                            !AverageBeginEndDistanceP!% of volume size
+
+Item count (the number of files and folders)
+           Unfragmented       Fragmented            All
+------- ----------------- ----------------- -----------------
+Files   !FILES000N! !FILES010N! !FILES020N!
+Folders !FILES100N! !FILES110N! !FILES120N!
+------- ----------------- ----------------- -----------------
+All     !FILES200N! !FILES210N! !FILES220N!
+
+Item count as percentage of total item count
+           Unfragmented       Fragmented            All
+------- ----------------- ----------------- -----------------
+Files   !FILES000P!%!FILES010P!%!FILES020P!%
+Folders !FILES100P!%!FILES110P!%!FILES120P!%
+------- ----------------- ----------------- -----------------
+All     !FILES200P!%!FILES210P!%!FILES220P!%
+
+Occupied size in bytes (the amount of space occupied on disk)
+           Unfragmented       Fragmented            All
+------- ----------------- ----------------- -----------------
+Files   !FILES002N! !FILES012N! !FILES022N!
+Folders !FILES102N! !FILES112N! !FILES122N!
+------- ----------------- ----------------- -----------------
+All     !FILES202N! !FILES212N! !FILES222N!
+
+Occupied size in gigabytes
+           Unfragmented       Fragmented            All
+------- ----------------- ----------------- -----------------
+Files   !FILES002G! !FILES012G! !FILES022G!
+Folders !FILES102G! !FILES112G! !FILES122G!
+------- ----------------- ----------------- -----------------
+All     !FILES202G! !FILES212G! !FILES222G!
+
+Occupied size as percentage of total size
+           Unfragmented       Fragmented            All
+------- ----------------- ----------------- -----------------
+Files   !FILES002P!%!FILES012P!%!FILES022P!%
+Folders !FILES102P!%!FILES112P!%!FILES122P!%
+------- ----------------- ----------------- -----------------
+All     !FILES202P!%!FILES212P!%!FILES222P!%
+
+Used size in bytes
+           Unfragmented       Fragmented            All
+------- ----------------- ----------------- -----------------
+Files   !FILES001N! !FILES011N! !FILES021N!
+Folders !FILES101N! !FILES111N! !FILES121N!
+------- ----------------- ----------------- -----------------
+All     !FILES201N! !FILES211N! !FILES221N!
+
+Used size in gigabytes
+           Unfragmented       Fragmented            All
+------- ----------------- ----------------- -----------------
+Files   !FILES001G! !FILES011G! !FILES021G!
+Folders !FILES101G! !FILES111G! !FILES121G!
+------- ----------------- ----------------- -----------------
+All     !FILES201G! !FILES211G! !FILES221G!
+
+Used size as percentage of total size
+           Unfragmented       Fragmented            All
+------- ----------------- ----------------- -----------------
+Files   !FILES001P!%!FILES011P!%!FILES021P!%
+Folders !FILES101P!%!FILES111P!%!FILES121P!%
+------- ----------------- ----------------- -----------------
+All     !FILES201P!%!FILES211P!%!FILES221P!%
+
+
+Gaps by count
+                    Count      Percentage of all
+             ----------------- -----------------
+Small gaps   !GAP01N! !GAP01P!%
+Big gaps     !GAP02N! !GAP02P!%
+             ----------------- -----------------
+All gaps     !GAP00N! !GAP00P!
+
+Gaps by size
+                   Bytes          Gigabytes      Percentage of all
+             ----------------- ----------------- -----------------
+Small gaps   !GAP11N! !GAP11G! !GAP11P!%
+Big gaps     !GAP12N! !GAP12G! !GAP12P!%
+             ----------------- ----------------- -----------------
+All gaps     !GAP10N! !GAP10G! !GAP10P!%
+Average gap  !GAP13N! !GAP13G! !GAP13P!%
+Median gap   !GAP14N! !GAP14G! !GAP14P!%
+Biggest gap  !GAP15N! !GAP15G! !GAP15P!%
+")
+
+
+
+# File colours for the diskmap:
+
+SetColor(Empty,0,0,0)                                   // Black
+SetColor(Allocated,45,72,128)                           // Dark-blue
+SetColor(BusyRead,0,255,0)                              // Green
+SetColor(BusyWrite,255,0,0)                             // Red
+SetFileColor(All,171,171,171)                           // Light-grey
+SetFileColor(Processed,51,255,255)                      // Light-blue
+SetFileColor(Fragmented,204,102,0)                      // Dark-orange
+SetFileColor(not(Movable),82,82,82)                     // Grey
+SetFileColor(Selected,51,102,255)                       // Blue
+SetFileColor(Selected and Fragmented,255,255,0)         // Yellow
+SetFileColor(Selected and not(Movable),102,34,0)        // Brown
